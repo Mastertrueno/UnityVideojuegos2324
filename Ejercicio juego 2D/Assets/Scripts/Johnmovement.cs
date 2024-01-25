@@ -5,10 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class Johnmovement : MonoBehaviour
 {
-    private Rigidbody2D Rigidbody2D;
+    public Rigidbody2D Rigidbody2D;
     private float Horizontal;
     public float JumpForce;
     public float Speed;
@@ -26,6 +27,7 @@ public class Johnmovement : MonoBehaviour
     private HUDScript hud;
     private float retraso;
     public int granadas=3;
+    //ICommand jumpCommand=new JumpCommand(john);
 
     void Start()
     {
@@ -35,7 +37,6 @@ public class Johnmovement : MonoBehaviour
         Animator = GetComponent<Animator>();
         Animator.SetBool("Dead", false);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -63,7 +64,8 @@ public class Johnmovement : MonoBehaviour
             Debug.DrawRay(transform.position, Vector3.down * 0.1f, Color.red);
             if (Input.GetKeyDown(KeyCode.W) && onGound)
             {
-                Jump();
+                //Jump();
+                //JumpCommand.Execute() ;
             }
             if (Input.GetKey(KeyCode.Space) && Time.time > LastShoot + 0.25f)
             {
@@ -99,7 +101,7 @@ public class Johnmovement : MonoBehaviour
         }
         
     }
-    private void Jump()
+    public static void Jump(Rigidbody2D Rigidbody2D, int JumpForce, AudioClip JumpSound)
     {
         Camera.main.GetComponent<AudioSource>().PlayOneShot(JumpSound);
         Rigidbody2D.AddForce(Vector2.up * JumpForce);
@@ -108,20 +110,52 @@ public class Johnmovement : MonoBehaviour
     {
         Rigidbody2D.velocity = new Vector2(Horizontal, Rigidbody2D.velocity.y);
     }
-    private void Shoot()
+    public static void Shoot()
     {
-        Vector3 direction;
-        if (transform.localScale.x == 1.0f)
-        {
-            direction = Vector3.right;
-        }
-        else
-        {
-            direction = Vector3.left;
-        }
-        GameObject bullet = Instantiate(Bulletprefab, transform.position + direction * 0.1f, Quaternion.identity);
-        bullet.GetComponent<BulletScript>().SetDirection(direction);
+        //Vector3 direction;
+        //if (transform.localScale.x == 1.0f)
+        //{
+        //    direction = Vector3.right;
+        //}
+        //else
+        //{
+        //    direction = Vector3.left;
+        //}
+        //GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
+        //if (bullet != null )
+        //{
+        //    bullet.transform.position = transform.position + direction * 0.1f;
+        //    bullet.transform.rotation = Quaternion.identity;
+        //    bullet.SetActive(true);
+        //}
+        //bullet.GetComponent<BulletScript>().SetDirection(direction);
     }
+    //private void Jump()
+    //{
+    //    Camera.main.GetComponent<AudioSource>().PlayOneShot(JumpSound);
+    //    Rigidbody2D.AddForce(Vector2.up * JumpForce);
+    //}
+
+    //private void Shoot()
+    //{
+    //    Vector3 direction;
+    //    if (transform.localScale.x == 1.0f)
+    //    {
+    //        direction = Vector3.right;
+    //    }
+    //    else
+    //    {
+    //        direction = Vector3.left;
+    //    }
+    //    GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
+    //    if (bullet != null)
+    //    {
+    //        bullet.transform.position = transform.position + direction * 0.1f;
+    //        bullet.transform.rotation = Quaternion.identity;
+    //        bullet.SetActive(true);
+    //    }
+    //    bullet.GetComponent<BulletScript>().SetDirection(direction);
+    //}
     private void Grenade()
     {
         Vector3 direction;
@@ -133,8 +167,8 @@ public class Johnmovement : MonoBehaviour
         {
             direction = Vector3.left;
         }
-        GameObject grenade = Instantiate(Grenadeprefab, transform.position + direction * 0.1f, Quaternion.identity);
-        //grenade.GetComponent<GrenadeScript>().SetDirection(direction);
+        GameObject grenade = Instantiate(Grenadeprefab, transform.position + direction * 0.2f, Quaternion.identity);
+        grenade.GetComponent<GrenadeScript>().SetDirection(direction);
     }
     public void Hit()
     {

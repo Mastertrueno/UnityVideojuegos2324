@@ -12,7 +12,7 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
+        //Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
     }
 
     // Update is called once per frame
@@ -22,11 +22,12 @@ public class BulletScript : MonoBehaviour
     }
     public void SetDirection(Vector2 direction)
     {
+        Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
         Direction = direction;
     }
     public void DestroyBullet()
     {
-        Object.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{

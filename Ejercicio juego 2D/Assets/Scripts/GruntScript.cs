@@ -42,7 +42,13 @@ public class GruntScript : MonoBehaviour
         {
             direction = Vector3.left;
         }
-        GameObject bullet = Instantiate(Bulletprefab, transform.position + direction * 0.1f, Quaternion.identity);
+        GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position + direction * 0.1f;
+            bullet.transform.rotation = Quaternion.identity;
+            bullet.SetActive(true);
+        }
         bullet.GetComponent<BulletScript>().SetDirection(direction);
     }
     public void Hit(int daño)
