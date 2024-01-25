@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="estatua" size="1.500000 4.458563" />
+    <ImageTarget name="escultura" size="0.500000 1.176020" />
+    <ImageTarget name="escaleras" size="2.000000 1.702070" />
+    <ImageTarget name="entrada" size="10.000000 6.580645" />
+    <ImageTarget name="donquijote" size="1.000000 2.283422" />
+    <ImageTarget name="halloween" size="0.500000 0.649701" />
+    <ImageTarget name="radiador" size="1.000000 0.451546" />
+    <ImageTarget name="cartel" size="1.000000 0.680000" />
+  </Tracking>
+</QCARConfig>
